@@ -4,7 +4,7 @@ import java.util.List;
 
 
 // Deck.java
-public class Deck {
+public class Deck implements IDeck {
     private static Deck instance;
     private List<Card> cards;
 
@@ -25,9 +25,9 @@ public class Deck {
         for (Card.Color color : Card.Color.values()) {
             if (color != Card.Color.WILD) {
                 for (int number = 0; number <= 9; number++) {
-                    cards.add(new NumberedCard(color, number));
+                    cards.add(CardFactory.createCard(color, number, null, null)); // Use CardFactory
                     if (number != 0) {
-                        cards.add(new NumberedCard(color, number));
+                        cards.add(CardFactory.createCard(color, number, null, null)); // Use CardFactory
                     }
                 }
             }
@@ -37,27 +37,31 @@ public class Deck {
         for (Card.Color color : Card.Color.values()) {
             if (color != Card.Color.WILD) {
                 for (ActionCard.Action action : ActionCard.Action.values()) {
-                    cards.add(new ActionCard(color, action));
-                    cards.add(new ActionCard(color, action));
+                    cards.add(CardFactory.createCard(color, -1, action, null)); // Use CardFactory
+                    cards.add(CardFactory.createCard(color, -1, action, null)); // Use CardFactory
                 }
             }
         }
 
         // Create wild cards
         for (int i = 0; i < 4; i++) {
-            cards.add(new WildCard(WildCard.WildType.WILD));
-            cards.add(new WildCard(WildCard.WildType.WILD_DRAW_FOUR));
+            cards.add(CardFactory.createCard(Card.Color.WILD, -1, null, WildCard.WildType.WILD)); // Use CardFactory
+            cards.add(CardFactory.createCard(Card.Color.WILD, -1, null, WildCard.WildType.WILD_DRAW_FOUR)); // Use CardFactory
         }
     }
 
-    public void shuffle() {
-        Collections.shuffle(cards);
-    }
-
+    @Override
     public Card drawCard() {
         if (cards.isEmpty()) {
             return null;
         }
         return cards.remove(0);
     }
+
+    @Override
+    public void shuffle() {
+        Collections.shuffle(cards);
+    }
+
+
 }

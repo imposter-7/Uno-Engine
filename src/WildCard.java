@@ -18,4 +18,9 @@ public class WildCard extends Card {
     public String toString() {
         return wildType.toString();
     }
+
+    @Override
+    public void applyAction(Game game) {
+
+    }
 }

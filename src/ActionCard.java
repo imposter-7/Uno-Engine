@@ -18,4 +18,9 @@ public class ActionCard extends Card {
     public String toString() {
         return color + " " + action;
     }
+
+    @Override
+    public void applyAction(Game game) {
+
+    }
 }

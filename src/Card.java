@@ -14,4 +14,6 @@ public abstract class Card {
     }
 
     public abstract String toString();
+
+    public abstract void applyAction(Game game);
 }

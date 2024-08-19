@@ -14,4 +14,9 @@ public class NumberedCard extends Card {
     public String toString() {
         return color + " " + number;
     }
+
+    @Override
+    public void applyAction(Game game) {
+
+    }
 }

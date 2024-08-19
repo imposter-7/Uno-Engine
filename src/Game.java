@@ -10,6 +10,7 @@ public abstract class Game {
     protected GameRules gameRules;
     protected int currentPlayerIndex;
     protected boolean reversed;
+    private final List<GameObserver> observers = new ArrayList<>();
 
     public Game(List<Player> players, GameRules gameRules) {
         this.players = players;
@@ -18,6 +19,10 @@ public abstract class Game {
         this.gameRules = gameRules;
         this.currentPlayerIndex = 0;
         this.reversed = false;
+
+        for (Player player : players) {
+            registerObserver(player);
+        }
     }
 
     public abstract void play();
@@ -55,4 +60,40 @@ public abstract class Game {
         System.out.println("Current Player: " + players.get(currentPlayerIndex).getName());
         System.out.println("-------------------------------------");
     }
+
+
+    public void registerObserver(GameObserver observer) {
+        observers.add(observer);
+    }
+
+    public void unregisterObserver(GameObserver observer) {
+        observers.remove(observer);
+    }
+
+    protected void notifyCardPlayed(Player player, Card card) {
+        for (GameObserver observer : observers) {
+            observer.onCardPlayed(player, card);
+        }
+    }
+
+    protected void notifyPlayerTurn(Player player) {
+        Card topCard = discardPile.getTopCard();
+        for (GameObserver observer : observers) {
+            observer.onPlayerTurn(player, topCard);
+        }
+
+    }
+
+    protected void notifyGameOver(Player winner) {
+        for (GameObserver observer : observers) {
+            observer.onGameOver(winner);
+        }
+    }
+
+    protected void notifyCardDrawn(Player player) {
+        for (GameObserver observer : observers) {
+            observer.onCardDrawn(player);
+        }
+    }
+
 }
