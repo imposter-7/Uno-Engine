@@ -41,6 +41,8 @@ public class CustomUnoGame extends Game {
                 if (gameRules.isValidMove(drawnCard, discardPile.getTopCard()))
                     continue;
 
+                System.out.println("No valid cards are drawn.");
+
             } else {
                 Card cardToPlay = playerHand.get(cardIndex);
                 currentPlayer.playCard(cardToPlay, discardPile);
@@ -59,9 +61,27 @@ public class CustomUnoGame extends Game {
                         case DRAW_TWO:
                             nextPlayer();
                             Player nextPlayer = players.get(currentPlayerIndex);
-                            nextPlayer.drawCard(deck);
-                            nextPlayer.drawCard(deck);
-                            System.out.println("Next player draws two cards!");
+                            for (int i = 0; i < 2; i++) {
+                                nextPlayer.drawCard(deck);
+                            }
+
+                            System.out.println("Next player draws 2 cards!");
+                            break;
+                    }
+                }
+                // Handle action cards
+                else if (cardToPlay instanceof WildCard wildCard) {
+                    switch (wildCard.getWildType()) {
+                        case WILD:
+                            break;
+                        case WILD_DRAW_FOUR:
+                            nextPlayer();
+                            Player nextPlayer = players.get(currentPlayerIndex);
+                            for (int i = 0; i < 4; i++) {
+                                nextPlayer.drawCard(deck);
+                            }
+
+                            System.out.println("Next player draws 4 cards!");
                             break;
                     }
                 }
