@@ -45,13 +45,8 @@ public abstract class Game {
         }
     }
 
-    protected boolean isGameOver() {
-        for (Player player : players) {
-            if (player.getHand().isEmpty()) {
-                return true;
-            }
-        }
-        return false;
+    protected boolean isGameOver( Player player) {
+        return player.getHand().isEmpty();
     }
 
     protected void printGameState() {

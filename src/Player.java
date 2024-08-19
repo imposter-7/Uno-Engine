@@ -40,7 +40,9 @@ public class Player implements GameObserver{
 
     @Override
     public void onCardPlayed(Player player, Card card) {
-        System.out.println(player.getName() + " played " + card.toString());
+        if (player == this) {
+            System.out.println(player.getName() + " played " + card.toString());
+        }
     }
 
     @Override
@@ -54,15 +56,15 @@ public class Player implements GameObserver{
 
     @Override
     public void onGameOver(Player winner) {
-        System.out.println("You won, " + name + "!");
+        if (winner == this){
+            System.out.println("You won, " + name + "!");
+        }
     }
 
     @Override
     public void onCardDrawn(Player player) {
         if (player == this) {
             System.out.println(player.getName()+" drew a card.");
-        } else {
-            System.out.println(player.getName() + " drew a card.");
         }
     }
 }
