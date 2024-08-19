@@ -25,9 +25,10 @@ public class CustomUnoGame extends Game {
             List<Card> playerHand = currentPlayer.getHand();
 
             boolean isValidCardIndex = cardIndex < playerHand.size() && cardIndex >= 0;
+            boolean nonValidMove = isValidCardIndex && !gameRules.isValidMove(playerHand.get(cardIndex), discardPile.getTopCard());
+            boolean nonValidDraw = cardIndex == -1 && !allowDraw;
 
-            if ((cardIndex == -1 && !allowDraw)
-                    || isValidCardIndex && !gameRules.isValidMove(playerHand.get(cardIndex), discardPile.getTopCard())){
+            if (nonValidDraw || nonValidMove){
                 System.out.println("Invalid move. Try again.");
                 continue;
             }
