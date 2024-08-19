@@ -11,9 +11,9 @@ public class CustomUnoGame extends Game {
     @Override
     public void play() {
         initializeGame();
+        boolean allowDraw = true;
 
-
-        while (!isGameOver()) {
+        while (true) {
             printGameState();
             Player currentPlayer = players.get(currentPlayerIndex);
             currentPlayer.printHand();
@@ -22,18 +22,25 @@ public class CustomUnoGame extends Game {
             System.out.print("Choose a card to play (or -1 to draw): ");
             int cardIndex = scanner.nextInt();
 
+            List<Card> playerHand = currentPlayer.getHand();
+
+            boolean isValidCardIndex = cardIndex < playerHand.size() && cardIndex >= 0;
+
+            if ((cardIndex == -1 && !allowDraw)
+                    || isValidCardIndex && !gameRules.isValidMove(playerHand.get(cardIndex), discardPile.getTopCard())){
+                System.out.println("Invalid move. Try again.");
+                continue;
+            }
+
             if (cardIndex == -1) {
+                allowDraw = false;
                 currentPlayer.drawCard(deck);
-            } else {
-                List<Card> playerHand = currentPlayer.getHand();
+                Card drawnCard = playerHand.get(playerHand.size() - 1);
 
-                if (cardIndex >= playerHand.size()
-                        || cardIndex < -1
-                        || !gameRules.isValidMove(playerHand.get(cardIndex), discardPile.getTopCard())){
-                    System.out.println("Invalid move. Try again.");
+                if (gameRules.isValidMove(drawnCard, discardPile.getTopCard()))
                     continue;
-                }
 
+            } else {
                 Card cardToPlay = playerHand.get(cardIndex);
                 currentPlayer.playCard(cardToPlay, discardPile);
 
@@ -58,6 +65,10 @@ public class CustomUnoGame extends Game {
                     }
                 }
             }
+
+            if (isGameOver()) break;
+            allowDraw = true;
+
             nextPlayer();
         }
 
