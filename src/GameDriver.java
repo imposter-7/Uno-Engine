@@ -7,7 +7,7 @@ public class GameDriver {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of players: ");
         int numPlayers = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         List<Player> players = new ArrayList<>();
         for (int i = 1; i <= numPlayers; i++) {
@@ -16,7 +16,7 @@ public class GameDriver {
             players.add(new Player(name));
         }
 
-               Game game = new CustomUnoGame(players);
+        Game game = new CustomUnoGame(players);
         game.play();
     }
 }

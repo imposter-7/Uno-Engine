@@ -35,6 +35,7 @@ public class CustomUnoGame extends Game {
 
             List<Card> playerHand = currentPlayer.getHand();
 
+            // Check for valid card index and move
             boolean isValidCardIndex = cardIndex < playerHand.size() && cardIndex >= 0;
             boolean nonValidMove = isValidCardIndex && !gameRules.isValidMove(playerHand.get(cardIndex), discardPile.getTopCard());
             boolean nonValidDraw = cardIndex == -1 && !allowDraw;
@@ -45,6 +46,7 @@ public class CustomUnoGame extends Game {
             }
 
             if (cardIndex == -1) {
+                //Handle drawing a card
                 allowDraw = false;
                 currentPlayer.drawCard(deck);
                 notifyCardDrawn(currentPlayer);
@@ -56,6 +58,7 @@ public class CustomUnoGame extends Game {
                 System.out.println("No valid cards are drawn.");
 
             } else {
+                // Handle playing a card
                 Card cardToPlay = playerHand.get(cardIndex);
                 currentPlayer.playCard(cardToPlay, discardPile);
                 notifyCardPlayed(currentPlayer,cardToPlay);

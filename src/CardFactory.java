@@ -7,7 +7,7 @@ public class CardFactory {
         } else if (color == Card.Color.WILD && wildType != null) {
             return new WildCard(wildType);
         } else {
-            return null; // Or throw an exception for invalid card parameters
+            return null;
         }
     }
 }

@@ -21,6 +21,6 @@ public class WildCard extends Card {
 
     @Override
     public void applyAction(Game game) {
-
+        // Implementation for applying wild card effects
     }
 }

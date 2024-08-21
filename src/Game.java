@@ -49,6 +49,7 @@ public abstract class Game {
         return player.getHand().isEmpty();
     }
 
+    // Method to print the current game state (for debugging)
     protected void printGameState() {
         System.out.println("-------------------------------------");
         System.out.println("Top Card: " + discardPile.getTopCard());

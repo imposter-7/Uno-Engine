@@ -21,6 +21,6 @@ public class ActionCard extends Card {
 
     @Override
     public void applyAction(Game game) {
-
+        // Implementation for applying action card effects
     }
 }

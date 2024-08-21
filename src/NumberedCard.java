@@ -1,5 +1,5 @@
 public class NumberedCard extends Card {
-    private int number;
+    private final int number;
 
     public NumberedCard(Color color, int number) {
         super(color);
@@ -17,6 +17,6 @@ public class NumberedCard extends Card {
 
     @Override
     public void applyAction(Game game) {
-
+        // Implementation for applying number card effects (if any)
     }
 }
